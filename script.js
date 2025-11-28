@@ -1,41 +1,41 @@
 //your JS code here. If required.
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const isbn = document.getElementById("isbn");
-const submit = document.getElementById("submit");
-const booList = document.getElementById("book-list");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const isbnInput = document.getElementById("isbn");
+const submitBtn = document.getElementById("submit");
+const bookList = document.getElementById("book-list");
 
 
 function addBook(){
+	const title = titleInput.value.trim();
+    const author = authorInput.value.trim();
+    const isbn = isbnInput.value.trim();
+	
 	if(title.value === "" || author.value === "" || isbn.value === ""){
-		alert("Please fill in all the details");
+		// alert("Please fill in all the details")
 		return;
 	}
 	const row = document.createElement("tr");
-      
     row.innerHTML = `
-	<td>${title.value}</td>
-	<td>${author.value}</td>
-	<td>${isbn.value}</td>
-	<td><button class="delete">X</button></td>`;
+      <td>${title}</td>
+      <td>${author}</td>
+      <td>${isbn}</td>
+      <td><button class="delete">X</button></td>
+    `;
 
 
 	bookList.appendChild(row);
-
-	title.value ="";
-	authoe.value ="";
-	isbn.value ="";
+	titleInput.value = "";
+    authorInput.value = "";
+    isbnInput.value = "";
 }
 
 
-submitBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  addBook();
-});
+submitBtn.addEventListener("click", addBook);
 
 bookList.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
-    e.target.parentElement.parentElement.remove();
+    const row = e.target.closest("tr");
+    if (row) row.remove();
   }
 });
-
